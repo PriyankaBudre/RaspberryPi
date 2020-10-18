@@ -1,2 +1,2 @@
 # RaspberryPi
-Python code for Robo car having using  UltraSonic Sensor, openCV -face recognition  using DC motors
+Python code for Robo car :  UltraSonic Sensor, openCV -face recognition  & DC motors
