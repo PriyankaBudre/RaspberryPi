@@ -1,0 +1,244 @@
+  /* 
+   * Control 2 DC motors with Smartphone via bluetooth
+ */
+int IRSensor = 2;
+int motor1Pin1 = 3; 
+int motor1Pin2 = 4; 
+int enable1Pin = 6; 
+int motor2Pin1 = 8; 
+int motor2Pin2 = 9; 
+int enable2Pin = 11;
+int state;
+String voice = "";
+int flag=0;        
+int stateStop=0;
+void setup() {
+    pinMode (IRSensor, INPUT); // sensor pin INPUT
+    // sets the pins as outputs:
+    pinMode(motor1Pin1, OUTPUT);
+    pinMode(motor1Pin2, OUTPUT);
+    pinMode(enable1Pin, OUTPUT);
+    pinMode(motor2Pin1, OUTPUT);
+    pinMode(motor2Pin2, OUTPUT);
+    pinMode(enable2Pin, OUTPUT);
+    // sets enable1Pin and enable2Pin high so that motor can turn on:
+    digitalWrite(enable1Pin, HIGH);
+    digitalWrite(enable2Pin, HIGH);
+    // initialize serial communication at 9600 bits per second:
+    Serial.begin(9600);
+
+}
+void loop() {    
+    while (Serial.available()){  //Check if there is an available byte to read
+      Serial.println("inside while loop");
+      delay(10); //Delay added to make thing stable
+      char c = Serial.read(); //Conduct a serial read
+      if (c == '#') {break;} //Exit the loop when the # is detected after the word
+      voice += c; //Shorthand for voice = voice + c
+      
+    }
+
+    int statusSensor = digitalRead (IRSensor);
+
+    if (statusSensor == 1){
+      
+    //if some date is sent, reads it and saves in state
+      if (voice.length() > 0 ) {
+        Serial.println(voice);
+       if (voice == "hi Robo") {
+            analogWrite(enable1Pin, 255);
+            analogWrite(enable2Pin, 255);
+            digitalWrite(motor1Pin1, HIGH);
+            digitalWrite(motor1Pin2, LOW); 
+            digitalWrite(motor2Pin1, HIGH);
+            digitalWrite(motor2Pin2, LOW);
+            delay(200);
+
+            digitalWrite(motor1Pin1, LOW);
+            digitalWrite(motor1Pin2, HIGH); 
+            digitalWrite(motor2Pin1, LOW);
+            digitalWrite(motor2Pin2, HIGH);
+            delay(200);
+
+            digitalWrite(motor1Pin1, LOW);
+            digitalWrite(motor1Pin2, LOW); 
+            digitalWrite(motor2Pin1, LOW);
+            digitalWrite(motor2Pin2, LOW);
+        }
+      
+        // if the state is 'F' the DC motor will go forward
+        if (voice == "go ahead") {
+            analogWrite(enable1Pin, 255);
+            analogWrite(enable2Pin, 255);
+            digitalWrite(motor1Pin1, HIGH);
+            digitalWrite(motor1Pin2, LOW); 
+            digitalWrite(motor2Pin1, HIGH);
+            digitalWrite(motor2Pin2, LOW);
+            delay(500);
+            if(flag == 0){
+              Serial.println("Go Forward!");
+              flag=1;
+            }
+        }
+        
+        // if the voice == "turn left" the motor will turn left
+        else if (voice == "turn left") {
+            digitalWrite(motor1Pin1, LOW); 
+            digitalWrite(motor1Pin2, LOW); 
+            digitalWrite(motor2Pin1, HIGH);
+            digitalWrite(motor2Pin2, LOW);
+
+            if(flag == 0){
+              Serial.println("Turn LEFT");
+              flag=1;
+            }
+            delay(700);
+            state=3;
+            //stateStop=1;
+            digitalWrite(motor1Pin1, LOW); 
+            digitalWrite(motor1Pin2, LOW); 
+            digitalWrite(motor2Pin1, LOW);
+            digitalWrite(motor2Pin2, LOW);
+        }
+        // if the voice == "turn right" the motor will turn right
+        else if (voice == "turn right") {   
+            digitalWrite(motor1Pin1, HIGH); 
+            digitalWrite(motor1Pin2, LOW); 
+            digitalWrite(motor2Pin1, LOW);
+            digitalWrite(motor2Pin2, LOW);
+            
+            if(flag == 0){
+              Serial.println("Turn RIGHT");
+              flag=1;
+            }
+            delay(700);
+            state=3;
+            //stateStop=1;
+            digitalWrite(motor1Pin1, LOW); 
+            digitalWrite(motor1Pin2, LOW); 
+            digitalWrite(motor2Pin1, LOW);
+            digitalWrite(motor2Pin2, LOW);
+        }
+        
+        // if the state is 'S' the motor will Stop
+        else if (voice == "stop" || stateStop == 1) {
+            digitalWrite(motor1Pin1, LOW); 
+            digitalWrite(motor1Pin2, LOW); 
+            digitalWrite(motor2Pin1, LOW);
+            digitalWrite(motor2Pin2, LOW);
+            if(flag == 0){
+              Serial.println("STOP!");
+              flag=1;
+            }
+            stateStop=0;
+        }
+        
+        // if the state is 'B' the motor will Reverse
+        else if (voice == "come back") {
+            analogWrite(enable1Pin, 100);
+            analogWrite(enable2Pin, 100);
+            digitalWrite(motor1Pin1, LOW); 
+            digitalWrite(motor1Pin2, HIGH);
+            digitalWrite(motor2Pin1, LOW);
+            digitalWrite(motor2Pin2, HIGH);
+            if(flag == 0){
+              Serial.println("Reverse!");
+              flag=1;
+            }
+        }
+      voice="";
+      }
+    }
+
+  else
+  {
+    Serial.println("Obstacle!");
+    //Go Back
+    digitalWrite(motor1Pin1, LOW);
+    digitalWrite(motor1Pin2, HIGH); 
+    digitalWrite(motor2Pin1, LOW);
+    digitalWrite(motor2Pin2, HIGH);
+    delay(200);
+
+     //stop
+    digitalWrite(motor1Pin1, LOW);
+    digitalWrite(motor1Pin2, LOW); 
+    digitalWrite(motor2Pin1, LOW);
+    digitalWrite(motor2Pin2, LOW);
+    
+  }
+/*
+    if(Serial.available() > 0){     
+      state = Serial.read();   
+      flag=0;
+    }
+// if the state is 'F' the motor will go Forward
+    else if (state == 'F') {
+        analogWrite(enable1Pin, 255);
+        analogWrite(enable2Pin, 255);
+        digitalWrite(motor1Pin1, HIGH);
+        digitalWrite(motor1Pin2, LOW); 
+        digitalWrite(motor2Pin1, HIGH);
+        digitalWrite(motor2Pin2, LOW);
+        delay(500);
+        if(flag == 0){
+          Serial.println("Go Forward!");
+          flag=1;
+        }
+    }
+    // if the state is 'R' the motor will turn left
+    else if (state == 'R') {
+        digitalWrite(motor1Pin1, HIGH); 
+        digitalWrite(motor1Pin2, LOW); 
+        digitalWrite(motor2Pin1, LOW);
+        digitalWrite(motor2Pin2, LOW);
+        if(flag == 0){
+          Serial.println("Turn LEFT");
+          flag=1;
+        }
+        delay(700);
+        state=3;
+        stateStop=1;
+    }
+    // if the state is 'S' the motor will Stop
+    else if (state == 'S' || stateStop == 1) {
+        digitalWrite(motor1Pin1, LOW); 
+        digitalWrite(motor1Pin2, LOW); 
+        digitalWrite(motor2Pin1, LOW);
+        digitalWrite(motor2Pin2, LOW);
+        if(flag == 0){
+          Serial.println("STOP!");
+          flag=1;
+        }
+        stateStop=0;
+    }
+    // if the state is 'L' the motor will turn right
+    else if (state == 'L') {
+        digitalWrite(motor1Pin1, LOW); 
+        digitalWrite(motor1Pin2, LOW); 
+        digitalWrite(motor2Pin1, LOW);
+        digitalWrite(motor2Pin2, HIGH);
+        if(flag == 0){
+          Serial.println("Turn RIGHT");
+          flag=1;
+        }
+        delay(700);
+        state=3;
+        stateStop=1;
+    }
+    // if the state is 'B' the motor will Reverse
+    else if (state == 'B') {
+        analogWrite(enable1Pin, 100);
+        analogWrite(enable2Pin, 100);
+        digitalWrite(motor1Pin1, LOW); 
+        digitalWrite(motor1Pin2, HIGH);
+        digitalWrite(motor2Pin1, LOW);
+        digitalWrite(motor2Pin2, HIGH);
+        if(flag == 0){
+          Serial.println("Reverse!");
+          flag=1;
+        }
+    }*/
+    //For debugging purpose
+    //Serial.println(state);
+    }
