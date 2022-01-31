@@ -1,0 +1,171 @@
+    1  sudo apt update
+    2  sudo apt list --upgradable'
+    3  sudo raspi-config
+    4  raspistill -v -o test.jpg
+    5  sudo raspi-config
+    6  sudo apt-get install xrdp
+    7  sudo service xrdp start
+    8  hostname -I
+    9  raspistill -v -o test.jpg
+   10  sudo raspi-config
+   11  raspistill -v -o test.jpg
+   12  sudo apt update
+   13  sudo apt full-upgrade
+   14  raspistill -v -o test.jpg
+   15  vcgencmd get_camera
+   16  sudo reboot
+   17  vcgencmd get_camera
+   18  raspistill -o image.jpg
+   19  df -h
+   20  sudo raspi-config
+   21  df -h
+   22  sudo apt-get purge wolfram-engine
+   23  sudo apt-get purge libreoffice*
+   24  sudo apt-get clean
+   25  sudo apt-get autoremove
+   26  sudo apt-get update && sudo apt-get upgrade
+   27  sudo apt-get install build-essential cmake pkg-config
+   28  sudo apt-get install libjpeg-dev libtiff5-dev libjasper-dev libpng-dev
+   29  sudo apt-get install libavcodec-dev libavformat-dev libswscale-dev libv4l-dev
+   30  sudo apt-get install libxvidcore-dev libx264-dev
+   31  sudo apt-get install libfontconfig1-dev libcairo2-dev
+   32  sudo apt-get install libgdk-pixbuf2.0-dev libpango1.0-dev
+   33  sudo apt-get install libgtk2.0-dev libgtk-3-dev
+   34  sudo apt-get install libatlas-base-dev gfortran
+   35  sudo apt-get install libhdf5-dev libhdf5-serial-dev libhdf5-103
+   36  sudo apt-get install libqtgui4 libqtwebkit4 libqt4-test python3-pyqt5
+   37  sudo apt-get install python3-dev
+   38  wget https://bootstrap.pypa.io/get-pip.py
+   39  sudo python get-pip.py
+   40  sudo python3 get-pip.py
+   41  sudo rm -rf ~/.cache/pip
+   42  sudo pip install virtualenv virtualenvwrapper
+   43  nano ~/.bashrc
+   44  source ~/.bashrc
+   45  mkvirtualenv cv -p python3
+   46  pip install "picamera[array]"
+   47  cd ~
+   48  cd~
+   49  cd ~
+   50  wget -O opencv.zip https://github.com/opencv/opencv/archive/4.1.1.zip
+   51  wget -O opencv_contrib.zip https://github.com/opencv/opencv_contrib/archive/4.1.1.zip
+   52  unzip opencv.zip
+   53  unzip opencv_contrib.zip
+   54  mv opencv-4.1.1 opencv
+   55  sudo nano /etc/dphys-swapfile
+   56  sudo /etc/init.d/dphys-swapfile stop
+   57  sudo /etc/init.d/dphys-swapfile start
+   58  workon cv
+   59  pip install numpy
+   60  cd ~/opencv
+   61  mkdir build
+   62  cd build
+   63  cmake -D CMAKE_BUILD_TYPE=RELEASE \
+   64  cmake -D CMAKE_BUILD_TYPE=RELEASE
+   65  cd ~
+   66  cd ~/opencv
+   67  cd Build
+   68  cd build
+   69  cmake -D CMAKE_BUILD_TYPE=RELEASE
+   70  pwd
+   71  cd ~/opencv/
+   72  cd build
+   73  cmake
+   74  cmake -D CMAKE_BUILD_TYPE=RELEASE \
+   75  cmake -DINSTALL_C_EXAMPLES=ON -DINSTALL_PYTHON_EXAMPLES=ON -DBUILD_EXAMPLES=ON -DBUILD_PYTHON_SUPPORT=ON -DWITH_TBB=ON -DBUILD_TBB=ON -DPYTHON3_EXECUTABLE=/usr/local/bin/python3.6 -DPYTHON3_INCLUDE=/usr/local/include/python3.6m -DPYTHON3_LIBRARY=/usr/local/lib/libpython3.6m.a -DPYTHON3_PACKAGES_PATH=/usr/local/lib/python3.6/site-packages/ -DPYTHON3_NUMPY_INCLUDE_DIR=/usr/local/local/python3.6/dist-packages/numpy-1.13.0rc2-py3.6-linux-armv7l.egg/numpy/core/include ..
+   76  cmake -D CMAKE_BUILD_TYPE=RELEASE -D CMAKE_INSTALL_PREFIX=/usr/local -D OPENCV_EXTRA_MODULES_PATH=~/opencv_contrib/modules -D ENABLE_NEON=ON -D ENABLE_VFPV3=ON -D BUILD_TESTS=OFF -D INSTALL_PYTHON_EXAMPLES=OFF -D OPENCV_ENABLE_NONFREE=ON -D CMAKE_SHARED_LINKER_FLAGS=-latomic -D BUILD_EXAMPLES=OFF ..
+   77  make -j4
+   78  sudo make install
+   79  sudo ldconfig
+   80  sudo nano /etc/dphys-swapfile
+   81  sudo /etc/init.d/dphys-swapfile stop
+   82  sudo /etc/init.d/dphys-swapfile start
+   83  cd /usr/local/lib/python3.7/site-packages/cv2/python-3.7
+   84  sudo mv cv2.cpython-37m-arm-linux-gnueabihf.so cv2.so
+   85  cd ~/.virtualenvs/cv/lib/python3.7/site-packages/
+   86  ln -s /usr/local/lib/python3.7/site-packages/cv2/python-3.7/cv2.so cv2.so
+   87  cd ~
+   88  workon cv
+   89  python
+   90  workon cv
+   
+   91  sudo pip3 install face_recognition
+   96  pip3 install face_recognition
+   
+  115  sudo nano config.txt
+  116  workon cv
+  117  cd ~/Desk
+  118  cd ~/Desktop/robopy/
+  119  python3 distRobo.py
+  120  sudo reboot
+  121  workon cv
+  122  cd ~/Desktop/robopy/
+  123  python3 distRobo.py
+  124  sudo poweroff
+  125  workon cv
+  126  cd ~/Desktop/robopy/
+  127  python3 distRobo.py 
+  128  sudo poweroff
+  129  workon cv
+  130  pip install PyAudio
+  131  pip install pyttsx3
+  132  cd ~/Desktop/robopy
+  133  python3 textToSpeech.py
+  134  pip install PyAudio
+  135  pip install pyttsx3
+  136  python3 textToSpeech.py
+  137  nano textToSpeech.py 
+  138  pip install SpeechRecognition
+ 
+  143  pip install pipwin
+  144  pipwin install pyaudio
+  145  sudo apt-get install python-dev
+  146  sudo apt-get install portaudio19-dev
+  147  sudo pip install pyaudio
+  
+  165  apt-get install mpg321
+  166  sudo apt-get install mpg321
+  167  espeak "hello world" --stdout |aplay
+  168  workon cv
+  169  cd ~/Desktop/robopy/
+  170  espeak "hello world" --stdout |aplay
+  171  python3 speech.py
+  172  cd ~
+  173  cat ~/.asoundrc
+  174  nano .asoundrc
+  175  cd ~/Desktop/robopy/
+  176  python3 speech.py
+  177  nano .asoundrc
+  178  cd ~
+  179  nano .asoundrc
+  180  cd ~/Desktop/robopy/
+  181  python3 speech.py
+  182  python3 index.py
+  183  python3 speech.py
+  184  python3 textToSpeech.py 
+  185  sudo apt-get install alsa-utils
+  186  apt-get install mpg321
+  187  cd ~
+  188  apt-get install mpg321
+  189  apt-get install lame
+  190  sudo apt-get install lame
+  191  sudo modprobe snd-bcm2835
+  192  ls
+  193  lsusb
+  194  cat /proc/asound/modules
+
+  224  dpkg -l pulseaudio
+  225  dpkg -l bluez
+  226  sudo apt-get install pulseaudio-module-bluetooth
+
+  575  cd ~/Desktop/robopy/
+  576  workon cv
+  577  pulseaudio --start
+  578  ps aux | grep pulseaudio
+  579  pulseaudio --stop
+  580  pulseaudio --kill
+  581  ps aux | grep pulseaudio
+  582  pulseaudio --start
+  606  python3 index.py 
+  610  sudo shutdown -h now
+  620  pip install wikipedia

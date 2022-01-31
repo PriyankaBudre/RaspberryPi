@@ -6,8 +6,8 @@ import webbrowser
 import os
 import time
 import subprocess
-from ecapture import ecapture as ec
-import wolframalpha
+#from ecapture import ecapture as ec
+#import wolframalpha
 import json
 import requests
 
@@ -16,6 +16,9 @@ engine=pyttsx3.init()
 voices=engine.getProperty('voices')
 engine.setProperty('voice','voices[0].id')
 
+engine.setProperty('rate', 90) # Speed percent
+
+
 def speak(text):
     engine.say(text)
     engine.runAndWait()
@@ -23,14 +26,14 @@ def speak(text):
 def wishMe():
     hour=datetime.datetime.now().hour
     if hour>=0 and hour<12:
-        speak("Hello,Good Morning")
-        print("Hello,Good Morning")
+        speak("Good Morning")
+        print("Good Morning")
     elif hour>=12 and hour<18:
-        speak("Hello,Good Afternoon")
-        print("Hello,Good Afternoon")
+        speak("Good Afternoon")
+        print("Good Afternoon")
     else:
-        speak("Hello,Good Evening")
-        print("Hello,Good Evening")
+        speak("Good Evening")
+        print("Good Evening")
         
 def takeCommand():
     r=sr.Recognizer()
@@ -47,8 +50,8 @@ def takeCommand():
             return "None"
         return statement
 
-print("Loading your AI personal assistant G-One")
-speak("Loading your AI personal assistant G-One")
+print("Loading your AI personal assistant")
+speak("Hey Priyanka, I am your AI personal assistant. My name is Robo")
 wishMe()
 
 if __name__=='__main__':
@@ -58,11 +61,19 @@ if __name__=='__main__':
         speak("Tell me how can I help you now?")
         statement = takeCommand().lower()
         if statement==0:
-            continue
+            continue 
             
-            
-            
-if "good bye" in statement or "ok bye" in statement or "stop" in statement:
-        speak('your personal assistant G-one is shutting down,Good bye')
-        print('your personal assistant G-one is shutting down,Good bye')
-        break
+        if "good bye" in statement or "ok bye" in statement or "stop" in statement:
+            speak('your personal assistant is shutting down,Good bye')
+            print('your personal assistant is shutting down,Good bye')
+            break
+        
+        if 'wikipedia' in statement:
+            speak('Searching Wikipedia...')
+            statement =statement.replace("wikipedia", "")
+            results = wikipedia.summary(statement, sentences=3)
+            speak("According to Wikipedia")
+            print(results)
+            speak(results)
+
+
